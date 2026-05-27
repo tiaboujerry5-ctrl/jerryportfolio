@@ -2,14 +2,15 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 const PROJECTS = [
-  { id: '01', name: 'Ember & Smoke BBQ',       niche: 'Restaurant',       url: 'https://embersmokebbq.vercel.app',        color: '#c84b00' },
-  { id: '02', name: 'Auberge Kamouraska',       niche: 'Hospitality',      url: 'https://aubergekamouraska.vercel.app',    color: '#1e6091' },
-  { id: '03', name: 'La Forge du Terroir',      niche: 'Restaurant',       url: 'https://laforgeduterroir.vercel.app',     color: '#7c4d00' },
-  { id: '04', name: 'ScènePrime',               niche: 'Entertainment',    url: 'https://sc-neprime.vercel.app',           color: '#6b21a8' },
-  { id: '05', name: 'Ember & Elm Body Studio',  niche: 'Beauty & Spa',     url: 'https://emberelmbodystudio.vercel.app',   color: '#9d174d' },
-  { id: '06', name: 'Lumière Aesthetics',       niche: 'MedSpa',           url: 'https://lumi-reaesthetics.vercel.app',    color: '#1e40af' },
-  { id: '07', name: 'Velour Studio',            niche: 'Permanent Makeup', url: 'https://velourstudio.vercel.app',         color: '#7c3aed' },
-  { id: '08', name: 'Lumière Aesthetics & Spa', niche: 'Medical Spa',      url: 'https://lumi-reaestheticsspa.vercel.app', color: '#065f46' },
+  { id: '01', name: 'Ember & Elm Body Studio',  niche: 'Beauty & Spa',     url: 'https://emberelmbodystudio.vercel.app',        color: '#9d174d' },
+  { id: '02', name: 'Nails by Su',              niche: 'Nail Studio',      url: 'https://nailsbysu.vercel.app',                 color: '#be185d' },
+  { id: '03', name: 'Lumière Aesthetics',       niche: 'MedSpa',           url: 'https://lumi-reaesthetics.vercel.app',         color: '#1e40af' },
+  { id: '04', name: 'Auberge Kamouraska',       niche: 'Hospitality',      url: 'https://aubergekamouraska.vercel.app',         color: '#1e6091' },
+  { id: '05', name: 'Ember & Smoke BBQ',        niche: 'Restaurant',       url: 'https://embersmokebbq.vercel.app',             color: '#c84b00' },
+  { id: '06', name: 'La Forge du Terroir',      niche: 'Restaurant',       url: 'https://laforgeduterroir.vercel.app',          color: '#7c4d00' },
+  { id: '07', name: 'ScènePrime',               niche: 'Entertainment',    url: 'https://sc-neprime.vercel.app',                color: '#6b21a8' },
+  { id: '08', name: 'Velour Studio',            niche: 'Permanent Makeup', url: 'https://velourstudio-wheat.vercel.app',        color: '#7c3aed' },
+  { id: '09', name: 'Lumière Aesthetics & Spa', niche: 'Medical Spa',      url: 'https://lumi-reaestheticsspa.vercel.app',      color: '#065f46' },
 ]
 
 const STACK = ['React', 'Tailwind CSS', 'Framer Motion', 'Vite', 'Claude AI', 'Vercel', 'Supabase', 'GitHub API']
@@ -47,7 +48,7 @@ function ProjectRow({ p, i }) {
         fontFamily: '"Cormorant Garamond", serif',
         fontSize: '1rem',
         fontWeight: 400,
-        color: hovered ? p.color : '#2e2e2e',
+        color: hovered ? p.color : '#484848',
         letterSpacing: '0.05em',
         transition: 'color 0.25s ease',
       }}>
@@ -59,7 +60,7 @@ function ProjectRow({ p, i }) {
         fontFamily: '"Cormorant Garamond", serif',
         fontSize: hovered ? '1.7rem' : '1.5rem',
         fontWeight: 500,
-        color: hovered ? '#ffffff' : '#d4d4d4',
+        color: hovered ? '#ffffff' : '#e8e8e8',
         letterSpacing: '0.01em',
         lineHeight: 1.2,
         transition: 'font-size 0.2s ease, color 0.25s ease',
@@ -73,7 +74,7 @@ function ProjectRow({ p, i }) {
         fontSize: '0.6rem',
         letterSpacing: '0.18em',
         textTransform: 'uppercase',
-        color: hovered ? p.color : '#3a3a3a',
+        color: hovered ? p.color : '#5a5a5a',
         transition: 'color 0.25s ease',
         whiteSpace: 'nowrap',
       }}>
@@ -204,7 +205,7 @@ export default function App() {
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} style={{ padding: '0 3rem 2.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem' }}>
             <span style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: '#f5f5f5' }}>Selected Work</span>
-            <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.6rem', letterSpacing: '0.18em', color: '#333', textTransform: 'uppercase' }}>8 live projects</span>
+            <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.6rem', letterSpacing: '0.18em', color: '#333', textTransform: 'uppercase' }}>9 live projects</span>
           </div>
           <div style={{ width: '2rem', height: '1px', background: '#c9a96e', marginTop: '0.5rem' }} />
         </motion.div>
@@ -276,7 +277,7 @@ export default function App() {
       {/* Footer */}
       <footer style={{ padding: '1.5rem 3rem', borderTop: '1px solid #0f0f0f', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.58rem', color: '#222', letterSpacing: '0.1em', textTransform: 'uppercase' }}>© 2026 Jerry Portfolio</span>
-        <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.58rem', color: '#222', letterSpacing: '0.1em', textTransform: 'uppercase' }}>8 Sites · AI-Crafted · Vercel</span>
+        <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.58rem', color: '#222', letterSpacing: '0.1em', textTransform: 'uppercase' }}>9 Sites · AI-Crafted · Vercel</span>
       </footer>
     </div>
   )
