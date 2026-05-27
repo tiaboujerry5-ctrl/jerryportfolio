@@ -1,21 +1,22 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 
+const BASE = 'https://mdceqvjsrzkvnrigaili.supabase.co/storage/v1/object/public/site-assets/portfolio-previews'
+
 const PROJECTS = [
-  { id: '01', name: 'Ember & Elm Body Studio',  niche: 'Beauty & Spa',     url: 'https://emberelmbodystudio.vercel.app',        color: '#9d174d' },
-  { id: '02', name: 'Nails by Su',              niche: 'Nail Studio',      url: 'https://nailsbysu.vercel.app',                 color: '#be185d' },
-  { id: '03', name: 'Lumière Aesthetics',       niche: 'MedSpa',           url: 'https://lumi-reaesthetics.vercel.app',         color: '#1e40af' },
-  { id: '04', name: 'Auberge Kamouraska',       niche: 'Hospitality',      url: 'https://aubergekamouraska.vercel.app',         color: '#1e6091' },
-  { id: '05', name: 'Ember & Smoke BBQ',        niche: 'Restaurant',       url: 'https://embersmokebbq.vercel.app',             color: '#c84b00' },
-  { id: '06', name: 'La Forge du Terroir',      niche: 'Restaurant',       url: 'https://laforgeduterroir.vercel.app',          color: '#7c4d00' },
-  { id: '07', name: 'ScènePrime',               niche: 'Entertainment',    url: 'https://sc-neprime.vercel.app',                color: '#6b21a8' },
-  { id: '08', name: 'Velour Studio',            niche: 'Permanent Makeup', url: 'https://velourstudio-wheat.vercel.app',        color: '#7c3aed' },
-  { id: '09', name: 'Lumière Aesthetics & Spa', niche: 'Medical Spa',      url: 'https://lumi-reaestheticsspa.vercel.app',      color: '#065f46' },
+  { id: '01', name: 'Ember & Elm Body Studio',  niche: 'Beauty & Spa',     url: 'https://emberelmbodystudio.vercel.app',       img: `${BASE}/emberelmbodystudio.jpg`,   color: '#9d174d' },
+  { id: '02', name: 'Nails by Su',              niche: 'Nail Studio',      url: 'https://nailsbysu.vercel.app',                img: `${BASE}/nailsbysu.jpg`,            color: '#be185d' },
+  { id: '03', name: 'Lumière Aesthetics',       niche: 'MedSpa',           url: 'https://lumi-reaesthetics.vercel.app',        img: `${BASE}/lumi-reaesthetics.jpg`,    color: '#1e40af' },
+  { id: '04', name: 'Auberge Kamouraska',       niche: 'Hospitality',      url: 'https://aubergekamouraska.vercel.app',        img: `${BASE}/aubergekamouraska.jpg`,    color: '#1e6091' },
+  { id: '05', name: 'Ember & Smoke BBQ',        niche: 'Restaurant',       url: 'https://embersmokebbq.vercel.app',            img: `${BASE}/embersmokebbq.jpg`,        color: '#c84b00' },
+  { id: '06', name: 'La Forge du Terroir',      niche: 'Restaurant',       url: 'https://laforgeduterroir.vercel.app',         img: `${BASE}/laforgeduterroir.jpg`,     color: '#7c4d00' },
+  { id: '07', name: 'Velour Studio',            niche: 'Permanent Makeup', url: 'https://velourstudio-wheat.vercel.app',       img: `${BASE}/velourstudio.jpg`,         color: '#7c3aed' },
+  { id: '08', name: 'Lumière Aesthetics & Spa', niche: 'Medical Spa',      url: 'https://lumi-reaestheticsspa.vercel.app',     img: `${BASE}/lumi-reaestheticsspa.jpg`, color: '#065f46' },
 ]
 
 const STACK = ['React', 'Tailwind CSS', 'Framer Motion', 'Vite', 'Claude AI', 'Vercel', 'Supabase', 'GitHub API']
 
-function ProjectRow({ p, i }) {
+function ProjectCard({ p, i }) {
   const [hovered, setHovered] = useState(false)
 
   return (
@@ -23,81 +24,133 @@ function ProjectRow({ p, i }) {
       href={p.url}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, x: -16 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.55, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        display: 'grid',
-        gridTemplateColumns: '4rem 1fr auto auto',
-        alignItems: 'center',
-        gap: '1.5rem',
-        padding: '1.6rem 3rem',
-        borderBottom: '1px solid #141414',
+        display: 'block',
         textDecoration: 'none',
-        background: hovered ? `${p.color}14` : 'transparent',
-        borderLeft: `3px solid ${hovered ? p.color : 'transparent'}`,
-        transition: 'background 0.25s ease, border-left-color 0.25s ease',
+        position: 'relative',
+        overflow: 'hidden',
+        background: '#0e0e0e',
+        border: `1px solid ${hovered ? p.color : '#1c1c1c'}`,
+        transition: 'border-color 0.3s ease',
         cursor: 'pointer',
       }}
     >
-      {/* Number */}
-      <span style={{
-        fontFamily: '"Cormorant Garamond", serif',
-        fontSize: '1rem',
-        fontWeight: 400,
-        color: hovered ? p.color : '#484848',
-        letterSpacing: '0.05em',
-        transition: 'color 0.25s ease',
-      }}>
-        {p.id}
-      </span>
+      {/* Screenshot */}
+      <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '16/9' }}>
+        <img
+          src={p.img}
+          alt={p.name}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'top',
+            display: 'block',
+            transform: hovered ? 'scale(1.04)' : 'scale(1)',
+            transition: 'transform 0.5s ease',
+          }}
+        />
+        {/* Dark overlay on hover with "View Live" CTA */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: hovered ? 'rgba(0,0,0,0.55)' : 'rgba(0,0,0,0)',
+          transition: 'background 0.3s ease',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>
+          <div style={{
+            fontFamily: '"Space Grotesk", sans-serif',
+            fontSize: '0.72rem',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: '#fff',
+            border: '1px solid rgba(255,255,255,0.6)',
+            padding: '0.6rem 1.4rem',
+            opacity: hovered ? 1 : 0,
+            transform: hovered ? 'translateY(0)' : 'translateY(8px)',
+            transition: 'opacity 0.3s ease, transform 0.3s ease',
+          }}>
+            View Live →
+          </div>
+        </div>
 
-      {/* Name */}
-      <span style={{
-        fontFamily: '"Cormorant Garamond", serif',
-        fontSize: hovered ? '1.7rem' : '1.5rem',
-        fontWeight: 500,
-        color: hovered ? '#ffffff' : '#e8e8e8',
-        letterSpacing: '0.01em',
-        lineHeight: 1.2,
-        transition: 'font-size 0.2s ease, color 0.25s ease',
-      }}>
-        {p.name}
-      </span>
+        {/* Number badge */}
+        <div style={{
+          position: 'absolute', top: '0.75rem', left: '0.75rem',
+          fontFamily: '"Cormorant Garamond", serif',
+          fontSize: '0.85rem',
+          color: 'rgba(255,255,255,0.5)',
+          background: 'rgba(0,0,0,0.5)',
+          padding: '0.15rem 0.5rem',
+          letterSpacing: '0.08em',
+        }}>
+          {p.id}
+        </div>
+      </div>
 
-      {/* Niche */}
-      <span style={{
-        fontFamily: '"Space Grotesk", sans-serif',
-        fontSize: '0.6rem',
-        letterSpacing: '0.18em',
-        textTransform: 'uppercase',
-        color: hovered ? p.color : '#5a5a5a',
-        transition: 'color 0.25s ease',
-        whiteSpace: 'nowrap',
+      {/* Card footer */}
+      <div style={{
+        padding: '1rem 1.25rem',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderTop: `1px solid ${hovered ? p.color + '44' : '#1c1c1c'}`,
+        transition: 'border-color 0.3s ease',
       }}>
-        {p.niche}
-      </span>
+        <div>
+          <div style={{
+            fontFamily: '"Cormorant Garamond", serif',
+            fontSize: '1.1rem',
+            fontWeight: 500,
+            color: '#e8e8e8',
+            lineHeight: 1.2,
+            marginBottom: '0.2rem',
+          }}>
+            {p.name}
+          </div>
+          <div style={{
+            fontFamily: '"Space Grotesk", sans-serif',
+            fontSize: '0.58rem',
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            color: hovered ? p.color : '#555',
+            transition: 'color 0.3s ease',
+          }}>
+            {p.niche}
+          </div>
+        </div>
+        <div style={{
+          width: '2rem', height: '2rem',
+          border: `1px solid ${hovered ? p.color : '#2a2a2a'}`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          transition: 'border-color 0.3s ease',
+          flexShrink: 0,
+        }}>
+          <span style={{
+            fontSize: '0.75rem',
+            color: hovered ? p.color : '#3a3a3a',
+            transition: 'color 0.3s ease',
+          }}>↗</span>
+        </div>
+      </div>
 
-      {/* Arrow */}
-      <span style={{
-        fontFamily: '"Space Grotesk", sans-serif',
-        fontSize: '1rem',
-        color: hovered ? p.color : '#2a2a2a',
-        transition: 'color 0.25s ease, transform 0.2s ease',
-        transform: hovered ? 'translateX(4px)' : 'none',
-        display: 'inline-block',
-      }}>
-        →
-      </span>
+      {/* Bottom color bar */}
+      <motion.div
+        animate={{ scaleX: hovered ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+        style={{ height: '2px', background: p.color, transformOrigin: 'left' }}
+      />
     </motion.a>
   )
 }
 
 function Marquee() {
-  const text = 'RESTAURANT  ·  HOSPITALITY  ·  BEAUTY  ·  MEDSPA  ·  ENTERTAINMENT  ·  PERMANENT MAKEUP  ·  MEDICAL SPA  ·  '
+  const text = 'RESTAURANT  ·  HOSPITALITY  ·  BEAUTY  ·  MEDSPA  ·  NAIL STUDIO  ·  PERMANENT MAKEUP  ·  MEDICAL SPA  ·  '
   return (
     <div style={{ overflow: 'hidden', borderTop: '1px solid #141414', borderBottom: '1px solid #141414', padding: '0.6rem 0' }}>
       <motion.div
@@ -139,19 +192,14 @@ export default function App() {
       {/* Hero */}
       <section style={{
         minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        padding: '0 3rem 5rem',
-        position: 'relative',
-        overflow: 'hidden',
+        display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
+        padding: '0 3rem 5rem', position: 'relative', overflow: 'hidden',
       }}>
         <div style={{
           position: 'absolute', top: '14vh', right: '3rem',
           width: '1px', height: '32vh',
           background: 'linear-gradient(to bottom, transparent, #c9a96e66, transparent)',
         }} />
-
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}>
           <div style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(4rem, 14vw, 13rem)', fontWeight: 300, lineHeight: 0.88, letterSpacing: '-0.02em', color: '#f5f5f5' }}>
             JERRY
@@ -170,8 +218,32 @@ export default function App() {
 
       <Marquee />
 
+      {/* Work */}
+      <section id="work" style={{ padding: '6rem 3rem' }}>
+        <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} style={{ marginBottom: '3rem' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', marginBottom: '0.4rem' }}>
+            <span style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: '#f5f5f5' }}>Selected Work</span>
+            <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.6rem', letterSpacing: '0.18em', color: '#333', textTransform: 'uppercase' }}>8 live projects</span>
+          </div>
+          <div style={{ width: '2rem', height: '1px', background: '#c9a96e' }} />
+          <p style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.72rem', color: '#484848', lineHeight: 1.7, marginTop: '1rem', maxWidth: '480px' }}>
+            Each site is AI-rebuilt from scratch — click any card to visit the live version.
+          </p>
+        </motion.div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+          gap: '1px',
+          background: '#141414',
+          border: '1px solid #141414',
+        }}>
+          {PROJECTS.map((p, i) => <ProjectCard key={p.id} p={p} i={i} />)}
+        </div>
+      </section>
+
       {/* About */}
-      <section id="about" style={{ padding: '6rem 3rem', borderBottom: '1px solid #141414' }}>
+      <section id="about" style={{ padding: '6rem 3rem', borderTop: '1px solid #141414' }}>
         <div style={{ maxWidth: '860px' }}>
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
@@ -184,13 +256,9 @@ export default function App() {
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginTop: '2.5rem' }}>
               {STACK.map(s => (
                 <span key={s} style={{
-                  fontFamily: '"Space Grotesk", sans-serif',
-                  fontSize: '0.62rem',
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  color: '#555',
-                  border: '1px solid #1e1e1e',
-                  padding: '0.4rem 0.8rem',
+                  fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.62rem',
+                  letterSpacing: '0.12em', textTransform: 'uppercase', color: '#555',
+                  border: '1px solid #1e1e1e', padding: '0.4rem 0.8rem',
                 }}>
                   {s}
                 </span>
@@ -200,23 +268,8 @@ export default function App() {
         </div>
       </section>
 
-      {/* Work */}
-      <section id="work" style={{ paddingTop: '5rem', paddingBottom: '2rem' }}>
-        <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} style={{ padding: '0 3rem 2.5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem' }}>
-            <span style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: '#f5f5f5' }}>Selected Work</span>
-            <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.6rem', letterSpacing: '0.18em', color: '#333', textTransform: 'uppercase' }}>9 live projects</span>
-          </div>
-          <div style={{ width: '2rem', height: '1px', background: '#c9a96e', marginTop: '0.5rem' }} />
-        </motion.div>
-
-        <div style={{ borderTop: '1px solid #141414' }}>
-          {PROJECTS.map((p, i) => <ProjectRow key={p.id} p={p} i={i} />)}
-        </div>
-      </section>
-
       {/* Process */}
-      <section style={{ padding: '6rem 3rem', borderTop: '1px solid #141414' }}>
+      <section style={{ padding: '4rem 3rem 6rem', borderTop: '1px solid #141414' }}>
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} style={{ marginBottom: '4rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.8rem' }}>
             <div style={{ width: '2rem', height: '1px', background: '#c9a96e' }} />
@@ -224,8 +277,7 @@ export default function App() {
           </div>
           <span style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: '#f5f5f5' }}>How it works</span>
         </motion.div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0', borderTop: '1px solid #141414' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', borderTop: '1px solid #141414' }}>
           {[
             { num: '01', title: 'Deep Scan',   desc: 'Full crawl across every page — SEO signals, services, visual tone, PDF extraction. Zero guessing, no templates.' },
             { num: '02', title: 'AI Rebuild',  desc: 'Claude generates a production React clone: tailored copy, niche design standards, licensed Unsplash photography.' },
@@ -264,20 +316,19 @@ export default function App() {
             <a href="mailto:tiaboujerry5@gmail.com" style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: '1.3rem', color: '#c9a96e', textDecoration: 'none', borderBottom: '1px solid #c9a96e44', paddingBottom: '3px' }}>
               tiaboujerry5@gmail.com
             </a>
-            <a href="https://instagram.com/more_jerryt" target="_blank" rel="noopener noreferrer" style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.68rem', color: '#555', textDecoration: 'none', letterSpacing: '0.12em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <a href="https://instagram.com/more_jerryt" target="_blank" rel="noopener noreferrer" style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.68rem', color: '#666', textDecoration: 'none', letterSpacing: '0.12em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ color: '#c9a96e', fontWeight: 600 }}>IG</span> more_jerryt
             </a>
-            <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.68rem', color: '#555', letterSpacing: '0.12em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.68rem', color: '#666', letterSpacing: '0.12em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ color: '#c9a96e', fontWeight: 600 }}>FB</span> Jerry Tiabou
             </span>
           </div>
         </motion.div>
       </section>
 
-      {/* Footer */}
       <footer style={{ padding: '1.5rem 3rem', borderTop: '1px solid #0f0f0f', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.58rem', color: '#222', letterSpacing: '0.1em', textTransform: 'uppercase' }}>© 2026 Jerry Portfolio</span>
-        <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.58rem', color: '#222', letterSpacing: '0.1em', textTransform: 'uppercase' }}>9 Sites · AI-Crafted · Vercel</span>
+        <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '0.58rem', color: '#222', letterSpacing: '0.1em', textTransform: 'uppercase' }}>8 Sites · AI-Crafted · Vercel</span>
       </footer>
     </div>
   )
